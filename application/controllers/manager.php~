@@ -1,0 +1,88 @@
+<?php
+class Manager extends CI_Controller
+{
+	//Make everything except index private
+	public function index()
+	{
+		$params = $_REQUEST;
+		
+		try{
+			$this->isAllowed();//throws exception if not allowed
+			$controller = strtolower($params['controller']);
+			$this->load->model($controller);
+			$result = $this->$controller->$params['action']($params);
+			$result['success']=true;
+			echo json_encode($result);
+		}
+		catch(Exception $e)
+		{
+			$result['success']=false;
+			$result['errmsg']= $e->getMessage();
+			echo json_encode($result);
+		}
+	}
+	public function actionSwitcher($params)
+	{
+		
+	}
+	public function isAllowed()
+	{
+		$params = $_REQUEST;
+		//try{
+			if($this->isAuthentic(0,0))//TODO
+			{
+				if(!isset($params['controller']))
+				{
+					throw new Exception('Controller not specified');
+				}
+				$controller=strtolower($params['controller']);
+				echo $controller;//test
+				if(!isset($params['action']))
+				{
+					throw new Exception('Action not specified');
+				}
+				$action=strtolower($params['action']);
+				if(!$this->controllerAllowed($controller))
+				{
+					throw new Exception('Controller not available');
+				}
+				if(!$this->actionAllowed($action))
+				{
+					throw new Exception('Action not available');
+				}
+			}
+			else
+			{
+				throw new Exception('Authentication failed');
+			}
+		//}
+		/*catch(Exception $e){
+			result['allowed']=false;
+			result['errmsg']=$e->getMessage();
+		}*/
+	}
+	public function controllerAllowed($controller)
+	{
+		return in_array($controller,$this->allowedControllers());
+	}
+	public function actionAllowed($action)
+	{
+		//return in_array($action,$this->allowedActions());
+		return true; //TODO
+	}
+	public function allowedActions()
+	{
+		$allowed = array('index');
+		return $allowed;
+	}
+	public function allowedControllers()
+	{
+		$allowed = array('hello','state','user');
+		return $allowed;
+	}
+	public function isAuthentic($appid,$key)//TODO
+	{
+		$apps = array('APP001'=>'252a36ac6c9423d946cd12d19c6a2632');
+		return true;
+	}
+}
