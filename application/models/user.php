@@ -23,15 +23,6 @@ class User extends CI_Model{
 	 */
 	public function newEntry($params)//TODO enable user registration without facebook by 
 	{
-		//TODO these parameters are being automatically set until future releases include them
-		$params['fbid']=-1;
-		$params['email']=-1;
-		$params['fit']=-1;
-		$params['vehicle']=-1;
-		$params['slot']=-1;
-		$params['ready']=-1;
-		$params['reqid']=-1;
-		$params['pass']=$this->randomPassword();
 		//id auto-incrementing handled by table
 		if($this->isParamsSet($params))
 		{
@@ -145,9 +136,9 @@ class User extends CI_Model{
 	}
 	function getRequiredParams()
 	{
-		return array('name','lx','ly','age','gender','imei','gcmregid');
+		return array('name','lx','ly','age','gender','imei','gcmregid','a1','a2','a3','a4','a5');
 	}
-		/**
+	/**
 	 * generates and return a random password consisting of characters defined by ASCII codes 48 to 122 (except 96)
 	 * @param $length length of password to be generated
 	 * @return generated password
