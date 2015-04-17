@@ -37,7 +37,12 @@ class User extends CI_Model{
 		{
 			$usresponse = $this->db->get_where('userlist',array('imei'=>$params['imei']))->result_array();
 			if(count($usresponse)>0){
-				return array('user'=>$usresponse[0]);
+                            $data;
+                            foreach($this->getRequiredParams() as $key){
+                                    $data[$key]=$params[$key];
+                            }
+                            $this->db->where('imei',$params['imei'])->update('userlist',$data);
+                            return array('user'=>$usresponse[0]);
 			}
 			$data;
 			foreach($this->getRequiredParams() as $key){
@@ -140,7 +145,7 @@ class User extends CI_Model{
 	}
 	function getRequiredParams()
 	{
-		return array('name','fbid','email','pass','lx','ly','ready','fit','age','vehicle','slot','gender','imei','gcmregid');
+		return array('name','lx','ly','age','gender','imei','gcmregid');
 	}
 		/**
 	 * generates and return a random password consisting of characters defined by ASCII codes 48 to 122 (except 96)

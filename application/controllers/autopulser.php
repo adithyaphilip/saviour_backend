@@ -5,9 +5,6 @@
 //this recursive call (pulsing) will stop when below mentioned files is created
 class Autopulser extends CI_Controller
 {
-    function index() {
-        echo "test";
-    }
     function startPulsing() {
         ini_set('max_execution_time', 0);
         $this->recursivePulse();
