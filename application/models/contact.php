@@ -9,7 +9,7 @@ class Contact extends ExposedModel {
         $this->throwExceptionOnUnset($params, $req);
         $numbers = explode(':', $params['contacts']);
         $batch = [];
-        foreach ($numbers as $key=>$value) {
+        foreach ($numbers as $value) {
             $number = substr($value, -10);
             $batch[] = ['userid'=>$params['userid'],'number'=>$number];
         }

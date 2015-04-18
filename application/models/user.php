@@ -26,6 +26,7 @@ class User extends CI_Model{
 		//id auto-incrementing handled by table
 		if($this->isParamsSet($params))
 		{
+                    $params['a5'] = $this->getBitFlags($params['a5']);
 			$usresponse = $this->db->get_where('userlist',array('imei'=>$params['imei']))->result_array();
 			if(count($usresponse)>0){
                             $data;
@@ -50,6 +51,15 @@ class User extends CI_Model{
 			throw new Exception('Insufficient parameters to create user');
 		}
 	}
+        
+        private function getBitFlags($timesfree) {
+            $times = explode(':', $timesfree);
+            $flagged = 0;
+            foreach($times as $val) {
+                $flagged += 1<<($val-1);
+            }
+            return $flagged;
+        }
 	/**
 	 * Used to create a new user from facebook. Can obtain email, city, age, gender, fbid, pass,fbtoken. Rest must be included in $params.
 	 * Throws exception if user with same fbid already exists in database.
@@ -136,7 +146,7 @@ class User extends CI_Model{
 	}
 	function getRequiredParams()
 	{
-		return array('name','lx','ly','age','gender','imei','gcmregid','a1','a2','a3','a4','a5');
+		return array('name','lx','ly','gender','imei','gcmregid','a1','a2','a3','a4','a5');
 	}
 	/**
 	 * generates and return a random password consisting of characters defined by ASCII codes 48 to 122 (except 96)
