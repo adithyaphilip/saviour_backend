@@ -11,7 +11,7 @@ class Contact extends ExposedModel {
         $batch = [];
         foreach ($numbers as $value) {
             $number = substr($value, -10);
-            $exist_contact = $this->getEntries(['userid'=>1,'number'=>$number], ['userid','number']);
+            $exist_contact = $this->getEntries(['userid'=>$params['userid'],'number'=>$number], ['userid','number']);
             if(count($exist_contact)==0) {
                 $batch[] = ['userid'=>$params['userid'],'number'=>$number];
             }
