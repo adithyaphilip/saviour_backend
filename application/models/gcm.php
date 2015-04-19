@@ -16,7 +16,7 @@ class Gcm extends ExposedModel {
         foreach($gcmregids_resp as $row) {
             $gcmregids[] = $row['gcmregid'];
         }        
-        $this->sendGoogleCloudMessage(['gcmregids'=>$gcmregids]);
+        return $this->sendGoogleCloudMessage(['gcmregids'=>$gcmregids]);
     }
     
     function sendGoogleCloudMessage( $params )
@@ -121,7 +121,7 @@ class Gcm extends ExposedModel {
         // Debug GCM response
         //------------------------------
 
-        echo $result;
+        return $result;
     }
 
     public function getTable() {
