@@ -128,6 +128,8 @@ class Save extends CI_Model{
 			$data = array('uid'=>$params['id'],'aids'=>$aids,'state'=>0,'time'=>$this->getTime());
 			$this->load->model('Emergencies');
 			$this->Emergencies->newEmergency($data);
+                        $this->load->model('gcm');
+                        $this->Gcm->sendMessageToUsers(['userids'=>$aids]);
 			return true;
 		}	
 		else{
@@ -237,6 +239,8 @@ class Save extends CI_Model{
 			$data = array('uid'=>$params['uid'],'aids'=>$aids,'state'=>0,'time'=>$this->getTime());
 			$this->load->model('Emergencies');
 			$this->Emergencies->newEmergency($data);
+                        $this->load->model('gcm');
+                        $this->Gcm->sendMessageToUsers(['userids'=>$aids]);
 		}
 	}
 	/**

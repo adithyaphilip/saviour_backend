@@ -1,5 +1,24 @@
 <?php
-class Gcm extends CI_Model {
+require_once(APPPATH . 'classes/ExposedModel.php');
+class Gcm extends ExposedModel {
+    /**
+     * sends GCM message to userids mentiond in params
+     * @param type $params
+     */
+    function sendMessageToUsers( $params ) {
+        $req = ['userids'];
+        $this->throwExceptionOnUnset($params, $req);
+        $gcmregids_resp = 
+                $this->db->where_in('id', $params['userids'])
+                ->select('gcmregid')->get('userlist')->result_array();
+        
+        $gcmregids = [];
+        foreach($gcmregids_resp as $row) {
+            $gcmregids[] = $row['gcmregid'];
+        }        
+        $this->sendGoogleCloudMessage(['gcmregids'=>$gcmregids]);
+    }
+    
     function sendGoogleCloudMessage( $params )
     {
         ini_set('display_errors', 1);
@@ -104,5 +123,10 @@ class Gcm extends CI_Model {
 
         echo $result;
     }
+
+    public function getTable() {
+        return 'userlist';
+    }
+
 }
 ?>
