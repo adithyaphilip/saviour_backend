@@ -13,7 +13,7 @@ class Pulse extends CI_Model{
 	 */
 	function pulse($params)
 	{
-		$this->routine_activities(); //no need as we're running a php script to do this?
+		//$this->routine_activities(); //no need as we're running a php script to do this?
 		$req = array('imei'=>$params['imei']);
 		$idresponse = $this->db->select('id')->get_where('userlist',array('imei'=>$params['imei']))->result_array();
 		$params['id']=$idresponse[0]['id'];
@@ -51,7 +51,6 @@ class Pulse extends CI_Model{
 		$this->cleanUpEmergencies();
 		$this->Save->setUnresponding();
 		$response = $this->db->get('emergencies')->result_array();
-                echo json_encode($response);
 		foreach($response as $emergency)
 		{
 			$this->Save->setNewSaviours(array('uid'=>$emergency['uid']));
