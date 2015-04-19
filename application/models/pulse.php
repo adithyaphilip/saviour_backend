@@ -23,7 +23,7 @@ class Pulse extends CI_Model{
 		if(count($response)!=0)
 		{
 			$userresponse = $this->db->get_where('userlist',array('id'=>$response[0]['uid']))->result_array();
-			$this->db->update('emergencies',array('state'=>'4'),array('id'=>$response[0]['id']));
+			//$this->db->update('emergencies',array('state'=>'4'),array('id'=>$response[0]['id']));
 			return array('emergency'=>'true','user'=>$userresponse[0]);
 		}
 		else {
