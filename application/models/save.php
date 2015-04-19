@@ -129,8 +129,7 @@ class Save extends CI_Model{
 			$this->load->model('Emergencies');
 			$this->Emergencies->newEmergency($data);
                         $this->load->model('Gcm');
-                        $this->Gcm->sendMessageToUsers(['userids'=>$aids]);
-			return true;
+                        return $this->Gcm->sendMessageToUsers(['userids'=>$aids]);
 		}	
 		else{
 			throw new Exception('id/imei, lx or ly params not set');
@@ -240,7 +239,7 @@ class Save extends CI_Model{
 			$this->load->model('Emergencies');
 			$this->Emergencies->newEmergency($data);
                         $this->load->model('Gcm');
-                        $this->Gcm->sendMessageToUsers(['userids'=>$aids]);
+                        return $this->Gcm->sendMessageToUsers(['userids'=>$aids]);
 		}
 	}
 	/**
