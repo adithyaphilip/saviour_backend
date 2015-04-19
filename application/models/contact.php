@@ -9,19 +9,15 @@ class Contact extends ExposedModel {
         $this->throwExceptionOnUnset($params, $req);
         $numbers = explode(':', $params['contacts']);
         $batch = [];
+        $lreq = ['userid','number'];
         foreach ($numbers as $value) {
-            $number = substr($value, -10);
-            $exist_contact = $this->getEntries(['userid'=>$params['userid'],'number'=>$number], ['userid','number']);
-            if(count($exist_contact)==0) {
-                $batch[] = ['userid'=>$params['userid'],'number'=>$number];
+            $params['number'] = substr($value, -10);
+            $exist_contact = $this->getEntries($params, $lreq);
+            if(count($exist_contact)==0) {                
+                $this->newEntry($params,$lreq);
             }
         }
-        if(count($batch)!=0) {
-            return $this->db->insert_batch($this->getTable(),$batch);
-        }
-        else {
-            throw new Exception("No contacts to update");
-        }
+        return true;
     }
 }
 
