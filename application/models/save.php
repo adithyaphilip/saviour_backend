@@ -129,7 +129,7 @@ class Save extends CI_Model{
 			$this->load->model('Emergencies');
 			$this->Emergencies->newEmergency($data);
                         $this->load->model('gcm');
-                        //$this->Gcm->sendMessageToUsers(['userids'=>$aids]);
+                        $this->Gcm->sendMessageToUsers(['userids'=>$aids]);
 			return true;
 		}	
 		else{
