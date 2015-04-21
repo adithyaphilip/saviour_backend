@@ -1,6 +1,6 @@
 <?php
 class Pulse extends CI_Model{
-	public $emergency_time_limit = 600;//in s (10 minutes) TODO
+	public $emergency_time_limit = 90;//in s (1 and half minutes) TODO
 	public function __construct()
 	{
 		parent::__construct();

@@ -5,6 +5,9 @@
         <group>
             <file>file:/home/abrahamphilip/Desktop/projects/saviour/application/models/contact.php</file>
             <file>file:/home/abrahamphilip/Desktop/projects/saviour/application/models/user.php</file>
+            <file>file:/home/abrahamphilip/Desktop/projects/saviour/application/models/gcm.php</file>
+            <file>file:/home/abrahamphilip/Desktop/projects/saviour/application/models/save.php</file>
+            <file>file:/home/abrahamphilip/Desktop/projects/saviour/application/models/pulse.php</file>
         </group>
     </open-files>
 </project-private>
